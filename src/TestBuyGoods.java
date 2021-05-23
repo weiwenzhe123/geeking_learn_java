@@ -12,6 +12,7 @@ public class TestBuyGoods {
         int Id;
         double SellPrice;
         double BuyPrince;
+        int numberHalfPrice=3;
         //定义超市信息
         SuperMarketClass SuperMarket = new SuperMarketClass();
         SuperMarket.setAddress("中州大道航海路666号");
@@ -25,8 +26,10 @@ public class TestBuyGoods {
             GoodsName = "商品名称为" + i;
             Id = i;
             number = (int) (1 + Math.random()) * 200;
-            SellPrice = (1 + Math.random()) * 100;
-            BuyPrince = (2 + Math.random()) * 100;
+            //卖出价格
+            SellPrice = (2 + Math.random()) * 100;
+            //进价
+            BuyPrince = (1 + Math.random()) * 100;
             all[i] = merchandise;
             all[i].setBuyPrice(BuyPrince);
             all[i].setSellPrice(SellPrice);
@@ -55,6 +58,7 @@ public class TestBuyGoods {
             customer.setName(GoodsName);
             if (IsTakeCar) {
                 //开车了
+                // 测试一下Git 和 vim
                 if (SuperMarket.getCarPortNum() <= 0) {
                     System.out.println("对不起，停车位不够，请下次再来");
                 } else {
@@ -75,29 +79,29 @@ public class TestBuyGoods {
                     System.out.println("您输入的商品编号有问题，请重新输入,最大值为:" + SuperMarket.getMerchandise().length);
                     continue;
                 }
-                if ( Id < 0 )
-                {
+                if ( Id < 0){
                     //退出
                     break;
                 }
                 System.out.println("您选的商品为：" + SuperMarket.getMerchandise()[Id].getGoodsName() + "商品单价为："
                         + SuperMarket.getMerchandise()[Id].getSellPrice());
+                System.out.println("商品进价为:" + SuperMarket.getMerchandise()[Id].getBuyPrice());
 
-                System.out.println("请输入您要购买几个：");
+                System.out.println("请输入您要购买几个 当天商品第"+ numberHalfPrice + "个半价：");
                 number = scanner.nextInt();
                 if (number > SuperMarket.getMerchandise()[Id].getGoodsNum() || number <= 0) {
                     System.out.println("您输入有误，请重新输入");
                     continue;
                 }
-                if (TotalPrice + number * SuperMarket.getMerchandise()[Id].getSellPrice() > customer.getMoney()) {
+                if (TotalPrice + SuperMarket.getMerchandise()[Id].CalcTotalPrice(number,numberHalfPrice)> customer.getMoney()) {
                     System.out.println("对不起，您买的东西超过您所带的金额，请重新选购");
                     continue;
                 }
                 //计算总的买的金额
-                TotalPrice = TotalPrice + number * SuperMarket.getMerchandise()[Id].getSellPrice();
-                SuperMarket.getMerchandise()[Id].setTodayProfit((SuperMarket.getMerchandise()[Id].getBuyPrice()
-                        - SuperMarket.getMerchandise()[Id].getSellPrice()) * number);
-                SuperMarket.getMerchandise()[Id].setGoodsNum(SuperMarket.getMerchandise()[Id].getGoodsNum() - number);
+                TotalPrice = TotalPrice + SuperMarket.getMerchandise()[Id].CalcTotalPrice(number,numberHalfPrice);
+                //更新库存数量和当天此 商品的利润信息
+                SuperMarket.getMerchandise()[Id].updateNumber(number);
+                SuperMarket.getMerchandise()[Id].updateProfit(number,numberHalfPrice);
 
             }
             //购买完毕
@@ -119,4 +123,6 @@ public class TestBuyGoods {
             }
         }
     }
+
+
 }

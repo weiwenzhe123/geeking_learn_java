@@ -59,4 +59,21 @@ public class Merchandise {
         GoodsName = goodsName;
     }
 
+    public double CalcTotalPrice(int numberToBuy , int numberToPrice){
+        double totoalprice;
+        int FullNumber;
+        int HalfNumber;
+        HalfNumber = numberToBuy / numberToPrice ;
+        FullNumber = numberToBuy - HalfNumber;
+        totoalprice = FullNumber * getSellPrice() + (HalfNumber * getSellPrice() /2 );
+        return totoalprice;
+    }
+    //更新利润值
+    //利润值 = 售价 - 进价
+    public void updateProfit(int numberToBuy, int numberToPrice){
+       setTodayProfit(CalcTotalPrice(numberToBuy,numberToPrice) - numberToBuy* getBuyPrice());
+    }
+    public void updateNumber(int number){
+       setGoodsNum( getGoodsNum() - number);
+    }
 }

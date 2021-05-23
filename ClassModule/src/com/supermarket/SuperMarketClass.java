@@ -38,4 +38,16 @@ public class SuperMarketClass {
     public void setMerchandise(Merchandise[] merchandise) {
         this.merchandise = merchandise;
     }
+    public Merchandise getMaxPorfitGoods(){
+        double totalPorfit=0;
+        int maxIndex=0;
+        totalPorfit = getMerchandise()[0].getSellPrice() - getMerchandise()[0].getBuyPrice();
+        for (int i= 0 ; i < merchandise.length;i++){
+            if (totalPorfit  < merchandise[i].getSellPrice()  - merchandise[i].getBuyPrice()){
+               totalPorfit = getMerchandise()[i].getSellPrice() - getMerchandise()[i].getBuyPrice();
+               maxIndex=i;
+            }
+        }
+        return merchandise[maxIndex];
+    }
 }

@@ -8,6 +8,15 @@ public class Customer {
     private double money;
     private boolean IsDriveCar;
 
+
+
+
+    public  Customer(String name,double money,boolean IsDriveCar){
+        this.name = name ;
+        this.money = money;
+        this.IsDriveCar = IsDriveCar;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

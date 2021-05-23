@@ -19,7 +19,7 @@ public class TestBuyGoods {
         SuperMarket.setCarPortNum(300);
         SuperMarket.setMarketName("爱便利超市");
         //定义商品信息
-        Merchandise[] all = new Merchandise[200];
+        Merchandise[] all = new Merchandise[2];
         SuperMarket.setMerchandise(all);
         for (int i = 0; i < all.length; i++) {
             Merchandise merchandise = new Merchandise();
@@ -42,21 +42,15 @@ public class TestBuyGoods {
         Scanner scanner = new Scanner(System.in);
         boolean IsTakeCar;
         while (IsOpen) {
-
             //开始营业了
             System.out.println("超市开门了");
             System.out.println("当前超市名称为:" + SuperMarket.getMarketName());
             System.out.println("当前超市地址为:" + SuperMarket.getAddress());
             System.out.println("当前拥有商品:" + SuperMarket.getMerchandise().length + "种");
+            System.out.println("当前商品中最挣钱的为: " + SuperMarket.getMaxPorfitGoods().getGoodsName());
             //进来客户了
-            Customer customer = new Customer();
-            GoodsName = "顾客编号1";
-            SellPrice = (Math.random() + 3) * 2000;
-            IsTakeCar = Math.random() > 0.5;
-            customer.setDriveCar(IsTakeCar);
-            customer.setMoney(SellPrice);
-            customer.setName(GoodsName);
-            if (IsTakeCar) {
+            Customer customer = new Customer("顾客编号1",(Math.random() + 3)*2000,Math.random()>0.5 );
+            if (customer.isDriveCar()) {
                 //开车了
                 // 测试一下Git 和 vim
                 if (SuperMarket.getCarPortNum() <= 0) {
@@ -65,7 +59,6 @@ public class TestBuyGoods {
                     System.out.println("停车位充足，欢迎光临");
                     System.out.println("停车位编号为：" + SuperMarket.getCarPortNum());
                     SuperMarket.setCarPortNum(SuperMarket.getCarPortNum() - 1);
-
                 }
             } else {
                 System.out.println("穷逼，没开车，来吧");
@@ -86,7 +79,6 @@ public class TestBuyGoods {
                 System.out.println("您选的商品为：" + SuperMarket.getMerchandise()[Id].getGoodsName() + "商品单价为："
                         + SuperMarket.getMerchandise()[Id].getSellPrice());
                 System.out.println("商品进价为:" + SuperMarket.getMerchandise()[Id].getBuyPrice());
-
                 System.out.println("请输入您要购买几个 当天商品第"+ numberHalfPrice + "个半价：");
                 number = scanner.nextInt();
                 if (number > SuperMarket.getMerchandise()[Id].getGoodsNum() || number <= 0) {
@@ -123,6 +115,4 @@ public class TestBuyGoods {
             }
         }
     }
-
-
 }

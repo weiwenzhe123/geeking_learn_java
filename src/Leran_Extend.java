@@ -13,5 +13,6 @@ public class Leran_Extend {
         c.fly();
         c.say();
         c.say();
+        c.say();
     }
 }

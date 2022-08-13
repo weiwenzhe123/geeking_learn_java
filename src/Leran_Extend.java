@@ -12,5 +12,6 @@ public class Leran_Extend {
         a.say();
         c.fly();
         c.say();
+        c.say();
     }
 }
